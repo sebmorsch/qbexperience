@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+//own import
+using DataBank;
 
 public class CommandRecognizer
 {
-
     private string[] command;
     Boolean commandhere; 
 
@@ -14,8 +14,10 @@ public class CommandRecognizer
     public void startCommandRecognition()
     {
         commandhere = false;
-        command = new string[1];
+        command = new string[3];
         command[0] = Commandstrings.COMMANDWURFTRAINING;
+        command[1] = Commandstrings.COMMANDFLY;
+        command[2] = Commandstrings.COMMANDPOST;
         commandRecognizer = new KeywordRecognizer(command);
         commandRecognizer.OnPhraseRecognized += OnPhraseRecognized;
         commandRecognizer.Start();
@@ -23,14 +25,31 @@ public class CommandRecognizer
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        Debug.Log(args.text);
         setCommandHere(true);
         switch (args.text)
         {
             case Commandstrings.COMMANDROUTETRAINING:
+                Debug.Log(args.text);
                 break;
             case Commandstrings.COMMANDWURFTRAINING:
-                break;      
+                Debug.Log(args.text);
+                break;
+            default:
+                Debug.Log(args.text);
+                QBExperienceDb qbdb = new QBExperienceDb();
+                try
+                {
+                    System.Data.IDataReader reader = qbdb.getDataByString(args.text);
+                    RouteEntity entity = new RouteEntity(reader[0].ToString(),reader[1].ToString(),reader[2].ToString());
+                }
+                catch(Exception e)
+                {
+                    Debug.Log("FEHLER");
+                }
+
+                //Mit Wert in Datenbank suchen
+
+                break;
         }  
     }
 

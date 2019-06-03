@@ -11,9 +11,10 @@ public class KeywordRecognize : MonoBehaviour
     void Start()
     {
         commandRecognizer = new CommandRecognizer();
-        keywords = new string[2];
+        keywords = new string[3];
         keywords[0] = Commandstrings.KEYWORDCOACH;
         keywords[1] = Commandstrings.KEYWORDTRAINER;
+        keywords[2] = Commandstrings.KEYWORDPLAYER;
         keywordrecognizer = new KeywordRecognizer(keywords);
         keywordrecognizer.OnPhraseRecognized += OnPhraseRecognized;
         keywordrecognizer.Start();
@@ -27,7 +28,13 @@ public class KeywordRecognize : MonoBehaviour
             keywordrecognizer.Stop();
             StartCoroutine(WaitForCommand());
             commandRecognizer.startCommandRecognition();
-        }        
+        }else if (args.text.ToString().Equals(Commandstrings.KEYWORDPLAYER))
+        {
+            Debug.Log(args.text);
+            keywordrecognizer.Stop();
+            StartCoroutine(WaitForCommand());
+            commandRecognizer.startCommandRecognition();
+        }      
        
     }
 

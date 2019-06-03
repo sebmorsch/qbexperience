@@ -19,11 +19,13 @@ public class LineOfScrimmageGenerator: MonoBehaviour {
         GameObject cubeThree = GameObject.CreatePrimitive(PrimitiveType.Cube);
         GameObject cubeFour = GameObject.CreatePrimitive(PrimitiveType.Cube);
         GameObject cubeFive = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        GameObject x = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
         cubeOne.transform.position = new Vector3(xPosition, 0.5F, zPosition);
         cubeTwo.transform.position = new Vector3((xPosition - 1.5F), 0.5F, zPosition);
         cubeThree.transform.position = new Vector3((xPosition + 1.5F), 0.5F, zPosition);
         cubeFour.transform.position = new Vector3((xPosition -3), 0.5F, zPosition);
         cubeFive.transform.position = new Vector3((xPosition + 3), 0.5F, zPosition);
+        x.transform.position = new Vector3((xPosition + 10), 0.5F, zPosition);
     }
 }
