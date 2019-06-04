@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Utilities {
 
-private static double yardCoefficient = 1.0936;
+    private static double yardCoefficient = 1.0936;
     public static double meterInYards(double meter) {
         return (meter * yardCoefficient);
     }
@@ -17,22 +17,50 @@ private static double yardCoefficient = 1.0936;
     public static string waypointlistInString(List<Vector3> waypointlist)
     {
         StringBuilder sb = new StringBuilder();
-        foreach (Vector3 vector in waypointlist)
+        for (int i = 0; i < waypointlist.Count; i++)
         {
-            float x = vector.x;
-            float y = vector.y;
-            float z = vector.z;
-            sb.Append(x + "," + y + "," + z + ";");
+            if (i == waypointlist.Count)
+            {
+                string x = waypointlist[i].x.ToString();
+                string y = waypointlist[i].y.ToString();
+                string z = waypointlist[i].z.ToString();
+                sb.Append(x + "," + y + "," + z);
+            }
+            else if (i == 0)
+                {
+                    string x = waypointlist[i].x.ToString();
+                    string y = waypointlist[i].y.ToString();
+                    string z = waypointlist[i].z.ToString();
+                    sb.Append(x + "," + y + "," + z);
+                }
+            else
+            {
+                string x = waypointlist[i].x.ToString();
+                string y = waypointlist[i].y.ToString();
+                string z = waypointlist[i].z.ToString();
+                sb.Append(";" + x + "," + y + "," + z);
+            }
         }
         return sb.ToString();
     }
 
-    public static List<Vector3> stringInWaypointlist(string waypointstring)
-    {
-        List<Vector3> waypointlist = new List<Vector3>();
-        for (int i = 0; i < waypointstring.Length; i++)
+        public static List<Vector3> stringInWaypointlist(string waypointstring)
         {
+            List<Vector3> waypointlist = new List<Vector3>();
+            string[] vectors = waypointstring.Split(';');
+            for (int i = 0; i < vectors.Length; i++)
+            {
+            string[] coordinates = vectors[i].Split(',');
+            for (int j = 0; j < coordinates.Length; j =+ 3)
+            {
+                Vector3 vec = new Vector3();
+                vec.x = float.Parse(coordinates[j]);
+                vec.y = float.Parse(coordinates[j + 1]);
+                vec.z = float.Parse(coordinates[j + 2]);
+                waypointlist.Add(vec);
+                Debug.Log("vecotr" + vec.x + " " + vec.y + " " + vec.z);
+            }
+            }
+            return waypointlist;
         }
-        return waypointlist;
-    }
-}
+} 

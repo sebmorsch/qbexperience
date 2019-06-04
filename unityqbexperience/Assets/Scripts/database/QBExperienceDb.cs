@@ -55,7 +55,7 @@ namespace DataBank
 
             IDbCommand dbcmd = getDbCommand();
             dbcmd.CommandText =
-                "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_ID + " = '" + str + "'";
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_NAME + " = '" + str + "'";
             return dbcmd.ExecuteReader();
         }
 

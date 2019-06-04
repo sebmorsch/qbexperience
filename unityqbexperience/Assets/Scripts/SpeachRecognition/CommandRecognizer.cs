@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+using System.Collections.Generic;
 //own import
 using DataBank;
 
@@ -40,7 +41,14 @@ public class CommandRecognizer
                 try
                 {
                     System.Data.IDataReader reader = qbdb.getDataByString(args.text);
-                    RouteEntity entity = new RouteEntity(reader[0].ToString(),reader[1].ToString(),reader[2].ToString());
+                    List<RouteEntity> routeList = new List<RouteEntity>();
+                    while (reader.Read())
+                    {
+                        RouteEntity entity = new RouteEntity(reader[0].ToString(), reader[1].ToString(), reader[2].ToString());
+                        Debug.Log("Liste:" + entity._listofwaypoints);
+                        routeList.Add(entity);
+                        LineOfScrimmageGenerator.isroutegezogen(entity._listofwaypoints);
+                    }
                 }
                 catch(Exception e)
                 {
