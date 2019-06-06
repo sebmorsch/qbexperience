@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class LineOfScrimmageGenerator: MonoBehaviour {
 
+    private const float cubeXSize = 0.75F;
+    private const float cubeYSize = 1.8F;
+    private const float cubeZSize = 0.75F;
+
+    private readonly Vector3 cubeVector = new Vector3(cubeXSize, cubeYSize, cubeZSize);
+
     public static float xPosition = 0.0F;
     public static float zPosition = 0.0F;
     public static bool issaid = false;
@@ -23,12 +29,19 @@ public class LineOfScrimmageGenerator: MonoBehaviour {
         GameObject cubeFive = GameObject.CreatePrimitive(PrimitiveType.Cube);
         x = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        cubeOne.transform.position = new Vector3(xPosition, 0.5F, zPosition);
-        cubeTwo.transform.position = new Vector3((xPosition - 1.5F), 0.5F, zPosition);
-        cubeThree.transform.position = new Vector3((xPosition + 1.5F), 0.5F, zPosition);
-        cubeFour.transform.position = new Vector3((xPosition -3), 0.5F, zPosition);
-        cubeFive.transform.position = new Vector3((xPosition + 3), 0.5F, zPosition);
-        x.transform.position = new Vector3(12, 0.5F, zPosition);
+        cubeOne.transform.localScale = cubeVector;
+        cubeTwo.transform.localScale = cubeVector;
+        cubeThree.transform.localScale = cubeVector;
+        cubeFour.transform.localScale = cubeVector;
+        cubeFive.transform.localScale = cubeVector;
+        x.transform.localScale = cubeVector;
+
+        cubeOne.transform.position = new Vector3(xPosition, cubeYSize/2, zPosition);
+        cubeTwo.transform.position = new Vector3((xPosition - 1.5F), cubeYSize/2, zPosition);
+        cubeThree.transform.position = new Vector3((xPosition + 1.5F), cubeYSize/2, zPosition);
+        cubeFour.transform.position = new Vector3((xPosition -3), cubeYSize/2, zPosition);
+        cubeFive.transform.position = new Vector3((xPosition + 3), cubeYSize/2, zPosition);
+        x.transform.position = new Vector3(12, cubeYSize/2, zPosition);
     }
 
     private void Update()
